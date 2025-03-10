@@ -4,4 +4,4 @@ node_modules
 notes.txt
 .git
 app-proxy.js
-
+**/.DS_Store

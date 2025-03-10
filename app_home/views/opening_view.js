@@ -28,8 +28,8 @@ export const openingHomeView = async function(theuser) {
     console.log ("Game status: " + usergamedata)
 
     //Need to check for this... what to do if user has no game?
-    const user_board_data = JSON.parse(await game_db.getData("/" + theuser + "/board_data"))
-    const game_level = await game_db.getData("/" + theuser + "/game_level")
+    const user_board_data = JSON.parse(await game_db.getObjectDefault("/" + theuser + "/board_data", null))
+    const game_level = await game_db.getObjectDefault("/" + theuser + "/game_level", "beginnger")
 
     let numRows = 0;
     let numColumns = 0;
@@ -58,12 +58,13 @@ export const openingHomeView = async function(theuser) {
 
     let flag_count = 0
     //get the count of total mines and total user flagged
-    for (let i = 0; i < numRows; i++) {
-      for (let j = 0; j < numColumns; j++) {
-        if (user_board_data[i][j].isFlagged) { flag_count++ }
+    if (user_board_data) {
+      for (let i = 0; i < numRows; i++) {
+        for (let j = 0; j < numColumns; j++) {
+          if (user_board_data[i][j].isFlagged) { flag_count++ }
+        }
       }
     }
-
 
     let toprow_text = ":blank_emoji: "
 
